@@ -1,12 +1,17 @@
+import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { useRoute } from './router';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default function App() {
+
+  const routing = useRoute(true)
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NavigationContainer >{routing}
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
