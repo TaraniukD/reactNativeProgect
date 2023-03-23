@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native';
 
 export default function App() {
 
-  const routing = useRoute(true)
+  const routing = useRoute(false)
 
   return (
     <NavigationContainer >{routing}

@@ -19,7 +19,7 @@ export function CreatePosts() {
           <View style={styles.imgWrap}>
             {/* <Image/> */}
             <TouchableOpacity
-              style={styles.photoIconWrap}
+              style={styles.iconWrap}
               activeOpacity={0.8}
             >
               <FontAwesome name="camera" size={30} color="#BDBDBD" />

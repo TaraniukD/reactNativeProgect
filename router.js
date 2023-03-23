@@ -24,7 +24,7 @@ export const useRoute = (isAuth) => {
   }
 
   return (
-    <Tabs.Navigator>
+    <Tabs.Navigator tabBarOptions={{showLabel: false}}>
         <Tabs.Screen options={{
               tabBarIcon: ({ focused, size, color }) => (
             <AntDesign name="pluscircleo" size={24} color={color} />

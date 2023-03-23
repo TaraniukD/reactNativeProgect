@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
   },
-  photoIconWrap: {
+  iconWrap: {
     position: "absolute",
     top: "50%",
     left: "50%",
