@@ -24,15 +24,19 @@ export const useRoute = (isAuth) => {
   }
 
   return (
-    <Tabs.Navigator tabBarOptions={{showLabel: false}}>
-        <Tabs.Screen options={{
+      <Tabs.Navigator tabBarOptions={{ showLabel: false }}>
+          <Tabs.Screen options={{
+              tabBarIcon: ({ focused, size, color }) => (
+            <AntDesign name="appstore-o" size={24} color={color} />
+              )}} name="Публікації" component={PostScreen} />
+          <Tabs.Screen options={{
               tabBarIcon: ({ focused, size, color }) => (
             <AntDesign name="pluscircleo" size={24} color={color} />
               )}}
               name="Створити публікацію"
               component={CreatePosts} />
-        <Tabs.Screen name="Коментарі" component={CommentsScreen} />
-        <Tabs.Screen name="Публікації" component={PostScreen} />
+        {/* <Tabs.Screen name="Коментарі" component={CommentsScreen} /> */}
+        
           <Tabs.Screen options={{
               tabBarIcon: ({ focused, size, color }) => (
             <AntDesign name="user" size={24} color={color} />
