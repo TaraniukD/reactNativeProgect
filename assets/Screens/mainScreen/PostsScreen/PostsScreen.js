@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   userName: {
-    fontFamily: "RobotoBold",
+    // fontFamily: "RobotoBold",
     fontSize: 13,
     lineHeight: 15,
     color: "#212121",
   },
   userEmail: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 11,
     lineHeight: 13,
   },

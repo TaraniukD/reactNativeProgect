@@ -14,33 +14,36 @@ const AuthStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
-  if (!isAuth) {
-    return (
-      <AuthStack.Navigator>
-            <AuthStack.Screen name="Registration" component={RegistrationScreens} options={{headerShown: false}}/>
-            <AuthStack.Screen name="Login" component={LoginScreens} options={{ headerShown: false }} /> 
-      </AuthStack.Navigator>
-    )
-  }
+    if (!isAuth) {
+        return (
+            <AuthStack.Navigator>
+                <AuthStack.Screen name="Registration" component={RegistrationScreens} options={{ headerShown: false }} />
+                <AuthStack.Screen name="Login" component={LoginScreens} options={{ headerShown: false }} />
+            </AuthStack.Navigator>
+        )
+    }
 
-  return (
-      <Tabs.Navigator tabBarOptions={{ showLabel: false }}>
-          <Tabs.Screen options={{
-              tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="appstore-o" size={24} color={color} />
-              )}} name="Публікації" component={PostScreen} />
-          <Tabs.Screen options={{
-              tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="pluscircleo" size={24} color={color} />
-              )}}
-              name="Створити публікацію"
-              component={CreatePosts} />
-        {/* <Tabs.Screen name="Коментарі" component={CommentsScreen} /> */}
+    return (
+        <Tabs.Navigator tabBarOptions={{ showLabel: false }}>
+            <Tabs.Screen options={{
+                tabBarIcon: ({ focused, size, color }) => (
+                    <AntDesign name="appstore-o" size={24} color={color} />
+                )
+            }} name="Публікації" component={PostScreen} />
+            <Tabs.Screen options={{
+                tabBarIcon: ({ focused, size, color }) => (
+                    <AntDesign name="pluscircleo" size={24} color={color} />
+                )
+            }}
+                name="Створити публікацію"
+                component={CreatePosts} />
+            {/* <Tabs.Screen name="Коментарі" component={CommentsScreen} /> */}
         
-          <Tabs.Screen options={{
-              tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="user" size={24} color={color} />
-        ), headerShown: false }} name="Профіль" component={ProfileScreen} />
-      </Tabs.Navigator>
-  )
-}
+            <Tabs.Screen options={{
+                tabBarIcon: ({ focused, size, color }) => (
+                    <AntDesign name="user" size={24} color={color} />
+                ), headerShown: false
+            }} name="Профіль" component={ProfileScreen} />
+        </Tabs.Navigator>
+    )
+};

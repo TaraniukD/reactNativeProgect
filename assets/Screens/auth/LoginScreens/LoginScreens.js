@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { StatusBar } from 'expo-status-bar';
-import {TouchableWithoutFeedback, KeyboardAvoidingView, ImageBackground, Text, View, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
+import {TouchableWithoutFeedback, KeyboardAvoidingView, ImageBackground, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { styles } from './LoginScreens.styled';
 
 export const initialState = {

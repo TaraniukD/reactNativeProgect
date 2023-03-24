@@ -6,7 +6,10 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+// import { Camera } from "expo-camera";
+// import * as MediaLibrary from "expo-media-library";
 import { FontAwesome, Feather } from "@expo/vector-icons";
+import CameraScreen from "../../../Components/Camera";
 import { styles } from './CreatePosts.styled';
 
 export function CreatePosts() {
@@ -17,13 +20,13 @@ export function CreatePosts() {
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
           <View style={styles.imgWrap}>
-            {/* <Image/> */}
-            <TouchableOpacity
+           <CameraScreen />
+            {/* <TouchableOpacity
               style={styles.iconWrap}
               activeOpacity={0.8}
             >
               <FontAwesome name="camera" size={30} color="#BDBDBD" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <TouchableOpacity style={{ marginBottom: 48 }} activeOpacity={0.8}>
             <Text style={styles.text}>Завантажте фото</Text>

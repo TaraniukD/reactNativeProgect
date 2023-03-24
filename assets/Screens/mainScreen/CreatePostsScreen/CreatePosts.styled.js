@@ -28,14 +28,14 @@ export const styles = StyleSheet.create({
     borderRadius: 60 / 2,
   },
   text: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#BDBDBD",
   },
   input: {
-    placeholderTextColor: "#BDBDBD",
-    fontFamily: "RobotoReg",
+    // placeholderTextColor: "#BDBDBD",
+    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   btnText: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#BDBDBD",

@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 100,
     padding: 13,
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
