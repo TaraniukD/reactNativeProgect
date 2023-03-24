@@ -6,6 +6,8 @@ import {
   Text,
   FlatList,
 } from "react-native";
+
+import { Entypo } from '@expo/vector-icons'; 
 import avatarImg from "../../../images/User.jpg";
 import posterImg1 from "../../../images/PublikBG1.png";
 import posterImg2 from "../../../images/PublikBG2.png";
@@ -33,7 +35,10 @@ const posts = [
 
 export default function PostScreen() {
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 32 }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 32, position: "relative" }}>
+      {/* <View style={{position: "absolute", top: -20, right: 30, zIndex: 1000,}}> */}
+        {/* <Entypo name="log-out" size={24} color="black" /> */}
+        {/* </View> */}
       <View style={styles.container}>
         <Image source={avatarImg} style={styles.photo} />
         <View>

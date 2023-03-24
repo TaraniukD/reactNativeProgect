@@ -54,12 +54,7 @@ export default function ProfileScreen({ navigation }) {
                 source={avatarImg}
                 style={{ width: "100%", height: "100%", borderRadius: 16 }}
               />
-              <AntDesign
-                name="pluscircleo"
-                size={24}
-                color="#BDBDBD"
-                style={styles.addPhotoIcon}
-              />
+              <AntDesign name="closecircleo" size={24} color="#BDBDBD" style={styles.addPhotoIcon}/>
             </View>
             <Text style={styles.title}>Natali Romanova</Text>
             <SafeAreaView>

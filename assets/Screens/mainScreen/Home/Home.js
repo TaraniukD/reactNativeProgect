@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 
-const Stack = createStackNavigator();
-
 import CommentsScreen from "./CommentsScreen";
 import MapScreen from "./MapScreen";
 import PostScreen from "./PostsScreen";
+
+const Stack = createStackNavigator();
 
 export default function Home() {
   return (
