@@ -36,9 +36,9 @@ const posts = [
 export default function PostScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 32, position: "relative" }}>
-      {/* <View style={{position: "absolute", top: -20, right: 30, zIndex: 1000,}}> */}
-        {/* <Entypo name="log-out" size={24} color="black" /> */}
-        {/* </View> */}
+      <View style={{position: "absolute", top: 0, right: 30, zIndex: 1000,}}>
+        <Entypo name="log-out" size={24} color="#BDBDBD" />
+        </View>
       <View style={styles.container}>
         <Image source={avatarImg} style={styles.photo} />
         <View>
