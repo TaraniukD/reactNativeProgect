@@ -1,9 +1,16 @@
-import { Image, View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Posters({ item }) {
   const navigations = useNavigation();
+  const [totalLikes, setTotalLikes] = useState(0)
+
+  const likesQuantity = () => {
+    return setTotalLikes(prevState => prevState += 1);
+  }
+    
   return (
     <View style={styles.container}>
       <Image source={item.photo} style={styles.photo} />
@@ -17,19 +24,21 @@ export default function Posters({ item }) {
             justifyContent: "space-between",
           }}
         >
-          <View
+          <TouchableOpacity
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
             }}
+            activeOpacity={0.8}
+            onPress={() => navigations.navigate("Comments")}
           >
             <Feather
               name="message-circle"
               size={24}
               color="#BDBDBD"
               style={styles.messageIcon}
-              onPress={() => navigations.navigate("Comments")}
+             
             />
             <Text
               style={{
@@ -38,39 +47,44 @@ export default function Posters({ item }) {
                 marginLeft: 9,
                 fontFamily: "RobotoReg",
               }}
+              
             >
               {item.comments}
             </Text>
-          </View>
-          <View
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
             }}
+            onPress={likesQuantity}
+            activeOpacity={0.8}
           >
             <Feather
               name="thumbs-up"
               size={24}
-              color={item?.likes === 0 ? "#BDBDBD" : "#FF6C00"}
+              color={totalLikes === 0 ? "#BDBDBD" : "#FF6C00"}
             />
             <Text
               style={{
                 ...styles.title,
-                color: item.likes === 0 ? "#BDBDBD" : "#212121",
+                color: totalLikes === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
                 fontFamily: "RobotoReg",
               }}
             >
-              {item.likes}
+              {totalLikes}
             </Text>
-          </View>
-          <View
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "flex-end",
             }}
+            onPress={() => navigations.navigate("MapScreen")}
+            activeOpacity={0.8}
           >
             <Feather
               name="map-pin"
@@ -79,7 +93,7 @@ export default function Posters({ item }) {
               style={{ marginRight: 8 }}
             />
             <Text style={styles.location}>{item.lacotion}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

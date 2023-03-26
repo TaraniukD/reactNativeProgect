@@ -1,9 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 
-import CommentsScreen from "./CommentsScreen";
-import MapScreen from "./MapScreen";
-import PostScreen from "./PostsScreen";
+import CommentsScreen from "../CommentsScreen/CommentsScreen";
+import MapScreen from "../MapScreen/MapScreen";
+import PostScreen from "../PostsScreen/PostsScreen";
 
 const Stack = createStackNavigator();
 

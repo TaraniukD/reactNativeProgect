@@ -19,7 +19,7 @@ export default function CommentsScreen() {
       <View style={styles.container}>
         <Image source={defPage} style={styles.photo} />
        
-          <UserComment avatar={userImg} />
+        <UserComment avatar={userImg} />
          
         <AvtorComment avatar={avtorImg} />
         

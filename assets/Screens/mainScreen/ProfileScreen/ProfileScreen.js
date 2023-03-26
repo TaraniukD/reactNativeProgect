@@ -23,7 +23,7 @@ const posts = [
     lacotion: "Ivano-Frankivs'k Region, Ukraine",
     id: "111",
     comments: 0,
-    likes: 3,
+    likes: 0,
   },
 ];
 

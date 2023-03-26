@@ -9,6 +9,7 @@ import PostScreen from './assets/Screens/mainScreen/PostsScreen/PostsScreen';
 import ProfileScreen from './assets/Screens/mainScreen/ProfileScreen/ProfileScreen';
 
 import { AntDesign } from '@expo/vector-icons'; 
+import Home from "./assets/Screens/mainScreen/Home/Home";
 
 const AuthStack = createStackNavigator(); 
 const Tabs = createBottomTabNavigator();
@@ -28,8 +29,11 @@ export const useRoute = (isAuth) => {
             <Tabs.Screen options={{
                 tabBarIcon: ({ focused, size, color }) => (
                     <AntDesign name="appstore-o" size={24} color={color} />
-                )
-            }} name="Публікації" component={PostScreen} />
+                ), 
+                headerShown: false
+            }}
+                name="Home"
+                component={Home} />
             <Tabs.Screen options={{
                 tabBarIcon: ({ focused, size, color }) => (
                     <AntDesign name="pluscircleo" size={24} color={color} />

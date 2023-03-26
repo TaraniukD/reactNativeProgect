@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,14 +8,12 @@ import {
   FlatList,
 } from "react-native";
 
-import { Entypo } from '@expo/vector-icons'; 
 import avatarImg from "../../../images/User.jpg";
 import posterImg1 from "../../../images/PublikBG1.png";
-import posterImg2 from "../../../images/PublikBG2.png";
 
 import Posters from "../../../Components/Posters";
 
-const posts = [
+const initialPosts = [
   {
     photo: posterImg1,
     name: "Ліс",
@@ -23,25 +22,20 @@ const posts = [
     comments: 0,
     likes: 0,
   },
-  {
-    photo: posterImg2,
-    name: "Захід сонця на морі",
-    lacotion: "Ukraine",
-    id: "112",
-    comments: 0,
-    likes: 0,
-  },
 ];
 
-export default function PostScreen() {
+export default function PostScreen({ route, navigation }) {
+  const [posts, setPosts] = useState(initialPosts);
+
+  useEffect(() => {
+    if(route.params) {setPosts(prevState => [...prevState, route.params])} 
+  }, [route.params])
+  
   return (
     <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 32, position: "relative" }}>
-      <View style={{position: "absolute", top: 0, right: 30, zIndex: 1000,}}>
-        <Entypo name="log-out" size={24} color="#BDBDBD" />
-        </View>
       <View style={styles.container}>
         <Image source={avatarImg} style={styles.photo} />
-        <View>
+    <View>
           <Text style={styles.userName}>Natali Romanova</Text>
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
