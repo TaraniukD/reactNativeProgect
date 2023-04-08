@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-// import { StatusBar } from 'expo-status-bar';
-import {TouchableWithoutFeedback, KeyboardAvoidingView, ImageBackground, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { useDispatch } from 'react-redux';
+import {
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  ImageBackground,
+  Text,
+  View, TextInput,
+  TouchableOpacity, Keyboard
+} from 'react-native';
+import { authSignInUser } from "../../../../redux/auth/authOperations";
 import { styles } from './LoginScreens.styled';
 
 export const initialState = {
-  login: '',
-  email: '',
+  userEmail: '',
   password: '',
 };
 
@@ -13,13 +20,15 @@ export default function LoginScreens({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
 
+  const dispatch = useDispatch();
+
   const BgImage = {uri: 'https://pibig.info/uploads/posts/2022-11/1669841130_1-pibig-info-p-altai-oboi-na-telefon-krasivo-1.jpg'};
 
     const formSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    dispatch(authSignInUser(state));
     setState(initialState);
-    console.log(state);
   }
 
      const keyboardHide = () => {
@@ -43,9 +52,9 @@ export default function LoginScreens({navigation}) {
         <TextInput
           style={styles.input}
           placeholder={'Електронна пошта'}
-          value={state.email}
+          value={state.userEmail}
           onFocus={() => setIsShowKeyboard(true)}
-          onChangeText={(value) => setState((prevState) => ({...prevState, email: value})) }
+          onChangeText={(value) => setState((prevState) => ({...prevState, userEmail: value})) }
         />
         <TextInput style={styles.input}
           placeholder={'Пароль'}

@@ -1,20 +1,28 @@
 import React from 'react';
-import { View, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+// import { View, Text } from "react-native";
+
 import * as SplashScreen from "expo-splash-screen";
-import { useFonts } from "expo-font";
-import { useRoute } from './router';
-import { StatusBar } from 'expo-status-bar';
+// import { useFonts } from "expo-font";
+import * as Font from "expo-font";
+
 import { StyleSheet } from 'react-native';
+import { Provider } from "react-redux";
+import { store } from './redux/store';
+
+import Main from './assets/Components/Main';
+
+
 
 export default function App() {
-  const routing = useRoute(true)
 
-  const [fontsLoaded] = useFonts({
+
+  const fontsLoaded = async () => {
+    await Font.loadAsync({
     RobotoReg: require("./assets/Fonts/Roboto/Roboto-Regular.ttf"),
     RobotoMed: require("./assets/Fonts/Roboto/Roboto-Medium.ttf"),
     RobotoBold: require("./assets/Fonts/Roboto/Roboto-Bold.ttf"),
-  });
+  })
+  };
 
    if (!fontsLoaded) {
     return (
@@ -27,9 +35,9 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer >{routing}
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <Provider store={store}>
+    <Main />
+    </Provider>
   );
 }
 

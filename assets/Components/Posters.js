@@ -45,7 +45,7 @@ export default function Posters({ item }) {
                 ...styles.title,
                 color: item.comments === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
-                fontFamily: "RobotoReg",
+                // fontFamily: "RobotoReg",
               }}
               
             >
@@ -71,7 +71,7 @@ export default function Posters({ item }) {
                 ...styles.title,
                 color: totalLikes === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
-                fontFamily: "RobotoReg",
+                // fontFamily: "RobotoReg",
               }}
             >
               {totalLikes}
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   title: {
-    fontFamily: "RobotoBold",
+    // fontFamily: "RobotoBold",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "270deg" }],
   },
   location: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",

@@ -4,8 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationScreens from './assets/Screens/auth/RegistrationScreens/RegistrationScreens';
 import LoginScreens from './assets/Screens/auth/LoginScreens/LoginScreens';
 import { CreatePosts } from './assets/Screens/mainScreen/CreatePostsScreen/CreatePosts';
-import CommentsScreen from './assets/Screens/mainScreen/CommentsScreen/CommentsScreen';
-import PostScreen from './assets/Screens/mainScreen/PostsScreen/PostsScreen';
+// import CommentsScreen from './assets/Screens/mainScreen/CommentsScreen/CommentsScreen';
+// import PostScreen from './assets/Screens/mainScreen/PostsScreen/PostsScreen';
 import ProfileScreen from './assets/Screens/mainScreen/ProfileScreen/ProfileScreen';
 
 import { AntDesign } from '@expo/vector-icons'; 
@@ -25,7 +25,15 @@ export const useRoute = (isAuth) => {
     }
 
     return (
-        <Tabs.Navigator tabBarOptions={{ showLabel: false }}>
+        <Tabs.Navigator screenOptions={{
+  "tabBarShowLabel": false,
+  "tabBarStyle": [
+    {
+      "display": "flex"
+    },
+    null
+  ]
+}}>
             <Tabs.Screen options={{
                 tabBarIcon: ({ focused, size, color }) => (
                     <AntDesign name="appstore-o" size={24} color={color} />

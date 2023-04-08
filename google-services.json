@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1019585881528",
+    "project_id": "react-native-app-28333",
+    "storage_bucket": "react-native-app-28333.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019585881528:android:acbddc373b6ac112159b4d",
+        "android_client_info": {
+          "package_name": "ReactNativeApp.Taraniuk.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019585881528-ibt9itjih4sq5vuf2h3irj3b77scam3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUz-R5nBD5QBb_zKQKcjnzQAcbRzhgvbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019585881528-ibt9itjih4sq5vuf2h3irj3b77scam3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import {
   Text,
   View,
@@ -7,6 +8,7 @@ import {
   Image,
   SafeAreaView,
   FlatList,
+  TouchableOpacity
 } from "react-native";
 
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -15,6 +17,7 @@ import posterImg1 from "../../../images/PublikBG1.png";
 import Posters from "../../../Components/Posters";
 
 import { styles } from "./ProfileScreen.styled"
+import { authSignOutUser } from "../../../../redux/auth/authOperations";
 
 const posts = [
   {
@@ -28,6 +31,12 @@ const posts = [
 ];
 
 export default function ProfileScreen({ navigation }) {
+  const dispatch = useDispatch();
+  
+  const signOut = () => {
+dispatch(authSignOutUser())
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -39,6 +48,7 @@ export default function ProfileScreen({ navigation }) {
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
           <View style={styles.form}>
+            <TouchableOpacity onPress={signOut}>
             <Feather
               name="log-out"
               size={24}
@@ -48,7 +58,8 @@ export default function ProfileScreen({ navigation }) {
                 marginBottom: 46,
                 paddingRight: 16,
               }}
-            />
+              />
+            </TouchableOpacity>
             <View style={styles.photoDef}>
               <Image
                 source={avatarImg}

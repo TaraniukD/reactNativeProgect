@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 6,
   },
   commentText: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 13,
     lineHeight: 18,
     color: "#212121",
   },
   commentTime: {
-    fontFamily: "RobotoReg",
+    // fontFamily: "RobotoReg",
     fontSize: 10,
     lineHeight: 12,
     textAlign: "right",

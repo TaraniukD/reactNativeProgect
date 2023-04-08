@@ -3,12 +3,14 @@
 import React, {useState} from 'react';
 import { TouchableWithoutFeedback, KeyboardAvoidingView, ImageBackground, Text, View, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { styles } from './RegistrationScreen.styled';
+import { useDispatch } from 'react-redux';
+import { authSignUpUser } from '../../../../redux/auth/authOperations';
 
 import { AntDesign } from '@expo/vector-icons'; 
 
 export const initialState = {
-  login: '',
-  email: '',
+  userName: '',
+  userEmail: '',
   password: '',
 };
 
@@ -16,14 +18,16 @@ export default function RegistrationScreens({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
 
+  const dispatch = useDispatch();
+
   const BgImage = {uri: 'https://pibig.info/uploads/posts/2022-11/1669841130_1-pibig-info-p-altai-oboi-na-telefon-krasivo-1.jpg'};
 
 
   const formSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    dispatch(authSignUpUser(state))
     setState(initialState);
-    console.log(state);
   }
 
     const keyboardHide = () => {
@@ -60,16 +64,16 @@ export default function RegistrationScreens({navigation}) {
       <TextInput
         style={styles.input}
         placeholder={'Логін'}
-        value={state.login}
+        value={state.userName}
         onFocus={() => setIsShowKeyboard(true)}
-        onChangeText={(value) => setState((prevState) => ({ ...prevState, login: value }))}
+        onChangeText={(value) => setState((prevState) => ({ ...prevState, userName: value }))}
         />
       <TextInput
         style={styles.input}
         placeholder={'Електронна пошта'}
-        value={state.email}
+        value={state.userEmail}
         onFocus={() => setIsShowKeyboard(true)}
-        onChangeText={(value) => setState((prevState) => ({...prevState, email: value})) }/>
+        onChangeText={(value) => setState((prevState) => ({...prevState, userEmail: value})) }/>
       <TextInput style={styles.input}
         placeholder={'Пароль'}
         secureTextEntry={true}
