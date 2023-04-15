@@ -25,6 +25,9 @@ export const authSlice = createSlice({
         authStateChange: (state, action) => ({ ...state, stateChange: action.payload.stateChange }),
         updateIsLoadAvatarOnServer: (state, { payload }) => {
       state.isLoadingPhotoToServer = payload;
+        },
+         updateAvatar: (state, { payload }) => {
+      state.avatar = payload;
     },
     }
     

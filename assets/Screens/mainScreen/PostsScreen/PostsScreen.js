@@ -27,7 +27,7 @@ export default function PostScreen({ route, navigation }) {
   }, [])
   
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 32, position: "relative" }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 20, position: "relative" }}>
       <View style={styles.container}>
         <Image source={{uri: avatar}} style={styles.photo} />
     <View>
@@ -39,7 +39,7 @@ export default function PostScreen({ route, navigation }) {
           <FlatList
           data={posts}
           renderItem={({ item }) => <Posters item={item} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.idPost}
           style={{ paddingTop: 32,  marginBottom: 70, }}
         />
       </SafeAreaView>
@@ -53,20 +53,22 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     marginHorizontal: 16,
-    paddingBottom: 0
+    paddingBottom: 20
   },
   photo: {
     width: 60,
     height: 60,
     marginRight: 8,
+    borderWidth: 1,
+    borderRadius: 16,
   },
   userName: {
-    fontSize: 13,
+    fontSize: 15,
     lineHeight: 15,
     color: "#212121",
   },
   userEmail: {
-    fontSize: 11,
+    fontSize: 12,
     lineHeight: 13,
   },
 });

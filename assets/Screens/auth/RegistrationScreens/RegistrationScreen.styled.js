@@ -74,6 +74,7 @@ export const styles = StyleSheet.create({
   input: {
     height: 50,
     padding: 16,
+    marginBottom:16,
     borderWidth: 1,
     borderRadius: 8,
     borderColor: '#E8E8E8',
@@ -86,7 +87,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FF6C00',
     height: 50,
     borderRadius: 100,
-    marginTop: 43,
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },

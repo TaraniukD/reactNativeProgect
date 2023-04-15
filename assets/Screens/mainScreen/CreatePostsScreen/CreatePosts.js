@@ -34,8 +34,7 @@ const initialPosts = {
 export function CreatePosts({ navigation }) {
   const [posts, setPosts ] = useState(initialPosts);
   const [camera, setCamera] = useState(null)
-  const [newPoster, setNewPoster] = useState('');
-  
+   
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,15 +55,15 @@ export function CreatePosts({ navigation }) {
     })();
   }, []);
 
-  useEffect(() => {
-     setPosts((prevS) => ({ ...prevS, photo: "", }));
-     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      await MediaLibrary.requestPermissionsAsync();
+  // useEffect(() => {
+  //    setPosts((prevS) => ({ ...prevS, photo: "", }));
+  //    (async () => {
+  //     const { status } = await Camera.requestCameraPermissionsAsync();
+  //     await MediaLibrary.requestPermissionsAsync();
 
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
 
     const downloadPhoto = async () => {
     let permissionResult =

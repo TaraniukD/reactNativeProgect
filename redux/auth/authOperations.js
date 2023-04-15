@@ -100,3 +100,14 @@ export const uploadAvatar = (avatar) => async (dispatch) => {
     return error.message;
   }
 };
+
+export const authUpdateAvatar = (avatar) => async (dispatch) => {
+  try {
+    await updateProfile(auth.currentUser, {
+      photoURL: avatar,
+    });
+    dispatch(authSlise.actions.updateAvatar(avatar));
+  } catch (error) {
+    return error.message;
+  }
+};

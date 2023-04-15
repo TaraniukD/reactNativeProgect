@@ -107,7 +107,7 @@ export default function Posters({ item }) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
-    marginBottom: 32,
+    marginBottom: 50,
   },
   photo: {
     width: "100%",
