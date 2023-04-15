@@ -47,12 +47,12 @@ export const styles = StyleSheet.create({
     addIcon: {
     position: "absolute",
     // bottom: 0,
-    right: 107,
+    right: -10,
     width: 25,
     height: 25,
     backgroundColor: "#fff",
-      borderRadius: 50,
-    color: '#ff6c00',
+    borderRadius: 50,
+    // color: '#ff6c00',
     // transform: [{ rotate: "-45deg" }]
   },
   titleContainer: {

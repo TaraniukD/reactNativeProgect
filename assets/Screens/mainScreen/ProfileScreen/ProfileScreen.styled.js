@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    minHeight: 500,
   },
   photoDef: {
     position: "absolute",

@@ -86,7 +86,8 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
         // marginTop: 300,
     }, 
-    takePhotoContainer: {
+  takePhotoContainer: {
+      flex: 1,
         position: "absolute",
         top: 10,
         left: 45,

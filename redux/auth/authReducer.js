@@ -6,6 +6,7 @@ const initialState = {
     userId: null,
     avatar: null,
     stateChange: false,
+    isLoadAvatarOnServer: false,
 };
 
 export const authSlice = createSlice({
@@ -20,12 +21,14 @@ export const authSlice = createSlice({
             avatar: action.payload.avatar,
             stateChange: action.payload.stateChange,
         }),
-    //      updateUser: (state, { payload }) => {
-    //   const { userId, userName, userEmail, avatar, stateChange} = payload;
-    //   return { ...state, userId, userName, userEmail, avatar, stateChange};
-    // },
         logoutUser: () => initialState,
         authStateChange: (state, action) => ({ ...state, stateChange: action.payload.stateChange }),
+        updateIsLoadAvatarOnServer: (state, { payload }) => {
+      state.isLoadingPhotoToServer = payload;
+    },
     }
     
 });
+
+
+export const { updateIsLoadAvatarOnServer } = authSlice.actions;

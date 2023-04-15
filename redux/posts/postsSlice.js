@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
-  pictureData: {},
+  comments: [],
 };
 
 export const postsSlice = createSlice({
@@ -18,6 +18,20 @@ export const postsSlice = createSlice({
     },
     updateLikes: (state, { payload }) => {
       return { ...state, posts: payload };
+    },
+    updateComments: (state, { payload }) => ({
+      ...state,
+      comments: payload,
+    }),
+    updateCountComments: (state, { payload }) => {
+      const { id, comments } = payload;
+      const updatedPosts = state.posts.posts.map((post) => {
+        if (post.idPost === id) {
+          return { ...post, comments };
+        }
+        return post;
+      });
+      return { ...state, posts: updatedPosts };
     },
   },
 });

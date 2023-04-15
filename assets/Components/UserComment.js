@@ -1,13 +1,12 @@
 import { Image, Text, View, StyleSheet } from "react-native";
 
-export const UserComment = ({ avatar }) => {
+export const UserComment = ({ comment }) => {
   return (
     <View style={styles.container}>
-      <Image source={avatar} style={styles.image} />
+      <Image source={{ uri: comment.photo }} style={styles.image} />
       <View style={styles.textWrap}>
-        <Text style={styles.commentText}>Really love your most recent photo.
-          I’ve been trying to capture the same thing for a few months and would love some tips!</Text>
-        <Text style={styles.commentTime}>09 июня, 2020 | 08:40</Text>
+        <Text style={styles.commentText}>{comment.comment}</Text>
+        <Text style={styles.commentTime}>{ comment.commentTime}</Text>
       </View>
       
     </View>
@@ -35,13 +34,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 6,
   },
   commentText: {
-    // fontFamily: "RobotoReg",
     fontSize: 13,
     lineHeight: 18,
     color: "#212121",
   },
   commentTime: {
-    // fontFamily: "RobotoReg",
     fontSize: 10,
     lineHeight: 12,
     textAlign: "right",

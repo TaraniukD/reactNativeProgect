@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { TouchableOpacity } from "react-native";
 
 import CommentsScreen from "../CommentsScreen/CommentsScreen";
-// import MapScreen from "../MapScreen/MapScreen";
+import MapScreen from "../MapScreen/MapScreen";
 import PostScreen from "../PostsScreen/PostsScreen";
 import { authSignOutUser } from "../../../../redux/auth/authOperations";
 
@@ -41,13 +41,13 @@ dispatch(authSignOutUser())
         name="Comments"
         component={CommentsScreen}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         options={() => ({
           headerTitleAlign: "center",
         })}
         name="MapScreen"
         component={MapScreen}
-      /> */}
+      />
     </Stack.Navigator>
   );
 }

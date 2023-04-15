@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Posters({ item }) {
   const navigations = useNavigation();
-  const [totalLikes, setTotalLikes] = useState(0)
+  const [totalLikes, setTotalLikes] = useState(0);
 
   const likesQuantity = () => {
     return setTotalLikes(prevState => prevState += 1);
@@ -13,9 +13,9 @@ export default function Posters({ item }) {
     
   return (
     <View style={styles.container}>
-      <Image source={item.photo} style={styles.photo} />
+      <Image source={{uri: item.photo}} style={styles.photo} />
       <View>
-        <Text style={{ ...styles.title, marginBottom: 11 }}>{item.name}</Text>
+        <Text style={{ ...styles.title, marginBottom: 11 }}>{item.title}</Text>
         <View
           style={{
             display: "flex",
@@ -31,7 +31,10 @@ export default function Posters({ item }) {
               alignItems: "center",
             }}
             activeOpacity={0.8}
-            onPress={() => navigations.navigate("Comments")}
+            onPress={() => navigations.navigate("Comments", {
+                  postId: item.idPost,
+                  photo: item.photo,
+                })}
           >
             <Feather
               name="message-circle"
@@ -45,9 +48,7 @@ export default function Posters({ item }) {
                 ...styles.title,
                 color: item.comments === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
-                // fontFamily: "RobotoReg",
               }}
-              
             >
               {item.comments}
             </Text>
@@ -71,7 +72,6 @@ export default function Posters({ item }) {
                 ...styles.title,
                 color: totalLikes === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
-                // fontFamily: "RobotoReg",
               }}
             >
               {totalLikes}
@@ -83,7 +83,11 @@ export default function Posters({ item }) {
               flexDirection: "row",
               alignItems: "flex-end",
             }}
-            onPress={() => navigations.navigate("MapScreen")}
+            onPress={() => navigations.navigate("MapScreen", {
+                  locationDescr: item.locationDescr,
+                  location: item.location,
+                  photo: item.photo,
+                })}
             activeOpacity={0.8}
           >
             <Feather
@@ -92,7 +96,7 @@ export default function Posters({ item }) {
               color="#BDBDBD"
               style={{ marginRight: 8 }}
             />
-            <Text style={styles.location}>{item.lacotion}</Text>
+            <Text style={styles.location}>{item.locationDescr}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -103,7 +107,7 @@ export default function Posters({ item }) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
-    marginBottom: 34,
+    marginBottom: 32,
   },
   photo: {
     width: "100%",
@@ -112,7 +116,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   title: {
-    // fontFamily: "RobotoBold",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
@@ -121,7 +124,6 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "270deg" }],
   },
   location: {
-    // fontFamily: "RobotoReg",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",

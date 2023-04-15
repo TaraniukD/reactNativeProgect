@@ -4,8 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationScreens from './assets/Screens/auth/RegistrationScreens/RegistrationScreens';
 import LoginScreens from './assets/Screens/auth/LoginScreens/LoginScreens';
 import { CreatePosts } from './assets/Screens/mainScreen/CreatePostsScreen/CreatePosts';
-// import CommentsScreen from './assets/Screens/mainScreen/CommentsScreen/CommentsScreen';
-// import PostScreen from './assets/Screens/mainScreen/PostsScreen/PostsScreen';
 import ProfileScreen from './assets/Screens/mainScreen/ProfileScreen/ProfileScreen';
 
 import { AntDesign } from '@expo/vector-icons'; 
@@ -49,7 +47,6 @@ export const useRoute = (isAuth) => {
             }}
                 name="Створити публікацію"
                 component={CreatePosts} />
-            {/* <Tabs.Screen name="Коментарі" component={CommentsScreen} /> */}
         
             <Tabs.Screen options={{
                 tabBarIcon: ({ focused, size, color }) => (

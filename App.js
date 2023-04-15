@@ -1,20 +1,17 @@
 import React from 'react';
-// import { View, Text } from "react-native";
+import { View, Text } from "react-native";
 
 import * as SplashScreen from "expo-splash-screen";
 // import { useFonts } from "expo-font";
 import * as Font from "expo-font";
 
-import { StyleSheet } from 'react-native';
+// import { StyleSheet } from 'react-native';
 import { Provider } from "react-redux";
 import { store } from './redux/store';
 
 import Main from './assets/Components/Main';
 
-
-
 export default function App() {
-
 
   const fontsLoaded = async () => {
     await Font.loadAsync({
@@ -41,11 +38,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

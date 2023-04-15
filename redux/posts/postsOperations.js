@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import {
   addDoc,
   collection,
@@ -34,9 +33,21 @@ export const getPosts = () => async (dispatch, getState) => {
     const querySnapshot = await getDocs(q);
 
     const allPosts = [];
-    querySnapshot.forEach((doc) =>
-      allPosts.push({ ...doc.data(), idPost: doc.id })
-    );
+        for (const doc of querySnapshot.docs) {
+      const postData = { ...doc.data(), idPost: doc.id };
+
+      const commentsSnapshot = await getDocs(
+        collection(db, "posts", postData.idPost, "comments")
+      );
+      const commentCount = commentsSnapshot.size;
+
+      await updateDoc(doc.ref, { comments: commentCount });
+
+      allPosts.push({
+        ...postData,
+        comments: commentCount,
+      });
+    }
 
     dispatch(postsSlice.actions.updatePosts(allPosts));
     return allPosts;
@@ -45,35 +56,23 @@ export const getPosts = () => async (dispatch, getState) => {
   }
 };
 
-export const changeLikes = (idPost) => async (dispatch, getState) => {
-  try {
-    const postRef = doc(db, "posts", idPost);
-    const countLikes = (await getDoc(postRef)).data().likes;
+export const uploadComments = (postId, comment) => async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    try {
+      const commentRef = collection(db, "posts", postId, "comments");
+      console.log(commentRef)
+      await addDoc(commentRef, {
+        ...comment,
+        userId: userId,
+      });
+      dispatch(getPosts());
+      console.log("Comment added to post");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    await updateDoc(postRef, {
-      likes: countLikes + 1,
-    });
-
-    dispatch(postsSlice.actions.updateLikes());
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const addCommentToPost = (postId, comment) => async (_, getState) => {
-  const { userId } = getState().auth;
-  try {
-    const commentRef = collection(db, "posts", postId, "comments");
-    await addDoc(commentRef, {
-      ...comment,
-      userId: userId,
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const getCommentsByPostId = (postId) => async (_, getState) => {
+export const getCommentsByPostId = (postId) => async (dispatch, getState) => {
   try {
     const commentsRef = collection(db, "posts", postId, "comments");
     const q = query(commentsRef);
@@ -82,7 +81,23 @@ export const getCommentsByPostId = (postId) => async (_, getState) => {
       id: doc.id,
       ...doc.data(),
     }));
+    dispatch(postsSlice.actions.updateComments(comments));
   } catch (error) {
     console.log(error.message);
   }
 };
+
+    export const changeLikes = (idPost) => async (dispatch, getState) => {
+      try {
+        const postRef = doc(db, "posts", idPost);
+        const countLikes = (await getDoc(postRef)).data().likes;
+    
+        await updateDoc(postRef, {
+          likes: countLikes + 1,
+        });
+    
+        dispatch(postsSlice.actions.updateLikes());
+      } catch (error) {
+        console.log(error.message);
+      }
+    };

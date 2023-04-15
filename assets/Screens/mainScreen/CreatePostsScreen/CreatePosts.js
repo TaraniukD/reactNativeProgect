@@ -5,47 +5,88 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   Platform,
   Image,
+  Keyboard
 } from "react-native";
-
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 
 import { useDispatch } from "react-redux";
 import * as MediaLibrary from "expo-media-library";
-import * as ImageManipulator from "expo-image-manipulator";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from './CreatePosts.styled';
-import { storage } from "../../../../firebase/config";
+import { uploadPhotoToServer } from "../../../../firebase/firebaseUtils";
 import {uploadPostToServer, getPosts } from "../../../../redux/posts/postsOperations";
 
 const initialPosts = {
   photo: "",
-  tittle: "",
+  title: "",
   location: {},
+  locationDescr: "",
   comments: [],
   likes: 0,
 };
 
 export function CreatePosts({ navigation }) {
   const [posts, setPosts ] = useState(initialPosts);
-  const [camera, setCamera] = useState(null);
-  const [location, setLocation] = useState(null);
-  const [snap, setSnap] = useState(null);
-  const [tittle, setTittle] = useState('');
+  const [camera, setCamera] = useState(null)
   const [newPoster, setNewPoster] = useState('');
   
   const dispatch = useDispatch();
 
-  console.log(posts);
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setPosts((prevS) => ({
+        ...prevS,
+        location: {
+          longitude: location.coords.longitude,
+          latitude: location.coords.latitude
+        },
+      }))
+    })();
+  }, []);
+
+  useEffect(() => {
+     setPosts((prevS) => ({ ...prevS, photo: "", }));
+     (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      await MediaLibrary.requestPermissionsAsync();
+
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+    const downloadPhoto = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    dispatch(updateIsLoadingPhotoToServer(true));
+
+    if (pickerResult.canceled === true) {
+      return;
+    }
+
+    const source = pickerResult.assets[0].uri;
+    const uploadedPhoto = await uploadPhotoToServer(source, "avatars");
+    setFormData((prevS) => ({ ...prevS, photo: uploadedPhoto }));
+    dispatch(updateIsLoadingPhotoToServer(false));
+  };
 
   const takePhoto = async () => {    
     const photo = await camera.takePictureAsync();
@@ -56,70 +97,20 @@ export function CreatePosts({ navigation }) {
     // const location = await Location.getCurrentPositionAsync();
   }
   
-  const sentPhoto = async () => {
-    const id = Date.now();
-    setPosts((prevS) => ({ ...prevS, tittle: tittle }));
+  const sentPost = async () => {
     dispatch(uploadPostToServer(posts));
     dispatch(getPosts());
-    navigation.navigate("Home", { newPoster });
-    // Keyboard.dismiss();
+    clearForm();
+    navigation.navigate("Home", { posts });
   };
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permission to access location was denied");
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      const coords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      };
-      setPosts((prevS) => ({
-        ...prevS,
-        location: {
-          longitude: location.coords.longitude,
-          latitude: location.coords.latitude}
-      }))
-      setLocation(coords);
-    })();
-  }, []);
-
-   useEffect(() => {
-     setPosts((prevS) => ({ ...prevS, photo: "", }));
-     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      await MediaLibrary.requestPermissionsAsync();
-
-      setHasPermission(status === "granted");
-    })();
-  }, []);
-
-  const uploadPhotoToServer = async ( photo, screenName) => {
-    const { uri } = await ImageManipulator.manipulateAsync(
-      photo,
-      [{ resize: { width: 800 } }],
-      { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
-    );
-    const response = await fetch(uri);
-    const photoFile = await response.blob();
-    const uniquePostId = Date.now().toString();
-
-    const storageRef =
-      screenName === "postScreen"
-        ? ref(storage, `postsImages/post_${uniquePostId}`)
-        : ref(storage, `avatarPhoto/avatar_${uniquePostId}`);
-
-    try {
-      await uploadBytesResumable(storageRef, photoFile);
-    
-      const processedPhoto = await getDownloadURL(storageRef);
-      return processedPhoto;
-    } catch (error) {
-      console.log(error);
-    }
+    const clearForm = async () => {
+    setPosts({
+      title: "",
+      locationDescr: "",
+      photo: "",
+      location: {},
+    });
   };
 
   return (
@@ -132,7 +123,7 @@ export function CreatePosts({ navigation }) {
             <Camera style={styles.camera} ref={setCamera}>
                 {posts.photo && (
                 <View style={styles.takePhotoContainer}>
-                    <Image source={{ uri: snap }} style={{ height: 150,
+                    <Image source={{ uri: posts.photo }} style={{ height: 150,
                       width: 270, borderRadius: 8,}} />
                 </View>
                 )}
@@ -141,17 +132,19 @@ export function CreatePosts({ navigation }) {
                 </TouchableOpacity>
           </Camera>
           </View>
-        <TouchableOpacity  activeOpacity={0.8} style={styles.loadImg}>
-            <Text style={styles.text}>Завантажте фото</Text>
+        <TouchableOpacity  activeOpacity={0.8} style={styles.loadImg} onPress={() => downloadPhoto()}>
+            <Text style={styles.text}>Download photo</Text>
           </TouchableOpacity>
-            <TextInput placeholder="Назва..." style={styles.input} onChangeText={setTittle} />
+            <TextInput placeholder="Name..." style={styles.input}
+              value={posts.title}
+              onChangeText={(value) => setPosts((prevS) => ({ ...prevS, title: value }))} />
           </View>
           <View style={{ marginBottom: 32, }}>
             <TextInput
-              placeholder="Локація..."
+              placeholder="Location..."
               style={{ ...styles.input, paddingLeft: 28 }}
-              value={newPoster.name}
-              onChangeText={(value) => setNewPoster((prevState) => ({...prevState, name: value})) }
+              value={posts.locationDescr}
+              onChangeText={(value) => setPosts((prevS) => ({...prevS, locationDescr: value})) }
             />
             <Feather
               name="map-pin"
@@ -163,7 +156,7 @@ export function CreatePosts({ navigation }) {
           <TouchableOpacity
             style={styles.btn}
             activeOpacity={0.8}
-            onPress={sentPhoto}
+            onPress={sentPost}
           >
             <Text style={styles.btnText}>Опублікувати</Text>
           </TouchableOpacity>
