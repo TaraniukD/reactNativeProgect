@@ -65,7 +65,6 @@ export const styles = StyleSheet.create({
     // fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
-
   },
   inputContainer: {
   gap: 16,  

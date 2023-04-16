@@ -5,10 +5,8 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Platform,
   Image,
-  Keyboard
 } from "react-native";
 
 import { useDispatch } from "react-redux";
@@ -55,16 +53,6 @@ export function CreatePosts({ navigation }) {
     })();
   }, []);
 
-  // useEffect(() => {
-  //    setPosts((prevS) => ({ ...prevS, photo: "", }));
-  //    (async () => {
-  //     const { status } = await Camera.requestCameraPermissionsAsync();
-  //     await MediaLibrary.requestPermissionsAsync();
-
-  //     setHasPermission(status === "granted");
-  //   })();
-  // }, []);
-
     const downloadPhoto = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -92,8 +80,6 @@ export function CreatePosts({ navigation }) {
     await MediaLibrary.createAssetAsync(photo.uri);
     const uploadPhoto = await uploadPhotoToServer(photo.uri, "postScreen");
     setPosts((prevS) => ({ ...prevS, photo: uploadPhoto }));
-    // setSnap(photo.uri);
-    // const location = await Location.getCurrentPositionAsync();
   }
   
   const sentPost = async () => {

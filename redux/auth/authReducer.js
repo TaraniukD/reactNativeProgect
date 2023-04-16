@@ -36,5 +36,4 @@ export const authSlice = createSlice({
     }
 });
 
-
 export const { updateIsLoadAvatarOnServer } = authSlice.actions;

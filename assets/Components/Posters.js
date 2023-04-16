@@ -1,15 +1,20 @@
-import { useState } from "react";
 import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+
+import { changeLikes } from "../../redux/posts/postsOperations";
 
 export default function Posters({ item }) {
   const navigations = useNavigation();
-  const [totalLikes, setTotalLikes] = useState(0);
+  
+  const dispatch = useDispatch();
 
   const likesQuantity = () => {
-    return setTotalLikes(prevState => prevState += 1);
-  }
+    dispatch(changeLikes(item.idPost));
+  };
+
+  console.log(item.idPost)
     
   return (
     <View style={styles.container}>
@@ -39,7 +44,7 @@ export default function Posters({ item }) {
             <Feather
               name="message-circle"
               size={24}
-              color="#BDBDBD"
+              color={item.comments === 0 ? "#BDBDBD" : "#FF6C00"}
               style={styles.messageIcon}
              
             />
@@ -65,16 +70,16 @@ export default function Posters({ item }) {
             <Feather
               name="thumbs-up"
               size={24}
-              color={totalLikes === 0 ? "#BDBDBD" : "#FF6C00"}
+              color={item.likes === 0 ? "#BDBDBD" : "#FF6C00"}
             />
             <Text
               style={{
                 ...styles.title,
-                color: totalLikes === 0 ? "#BDBDBD" : "#212121",
+                color: item.likes === 0 ? "#BDBDBD" : "#212121",
                 marginLeft: 9,
               }}
             >
-              {totalLikes}
+              {item.likes}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

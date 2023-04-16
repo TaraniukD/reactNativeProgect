@@ -91,17 +91,6 @@ try {
   }
 };
 
-// export const uploadAvatar = (avatar) => async (dispatch) => {
-//   try {
-//     await updateProfile(auth.currentUser, {
-//       photoURL: avatar,
-//     });
-//     dispatch(authSlice.actions.updateAvatar(avatar));
-//   } catch (error) {
-//     return error.message;
-//   }
-// };
-
 export const authUpdateAvatar = (avatar) => async (dispatch) => {
   try {
     await updateProfile(auth.currentUser, {

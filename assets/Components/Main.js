@@ -5,9 +5,6 @@ import { useRoute } from '../../router';
 import { useSelector, useDispatch } from "react-redux";
 import { authStateChangeUser } from "../../redux/auth/authOperations";
 
-
-
-
 const Main = () => {
     const { stateChange } = useSelector((state) => state.auth)
     const state = useSelector((state) => state.auth)

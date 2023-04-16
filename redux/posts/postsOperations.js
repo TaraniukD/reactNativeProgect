@@ -86,16 +86,16 @@ export const getCommentsByPostId = (postId) => async (dispatch, getState) => {
   }
 };
 
-    export const changeLikes = (idPost) => async (dispatch, getState) => {
+    export const changeLikes = (postId) => async (dispatch, getState) => {
       try {
-        const postRef = doc(db, "posts", idPost);
+        const postRef = doc(db, "posts", postId);
         const countLikes = (await getDoc(postRef)).data().likes;
     
         await updateDoc(postRef, {
           likes: countLikes + 1,
         });
     
-        dispatch(postsSlice.actions.updateLikes());
+        dispatch(postsSlice.actions.updateLikes({ id: postId, likes: countLikes + 1 }));
       } catch (error) {
         console.log(error.message);
       }
