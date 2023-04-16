@@ -7,7 +7,11 @@ export const AvtorComment = ({ comment }) => {
         <Text style={styles.commentText}>{comment.comment}</Text>
         <Text style={styles.commentTime}>{comment.commentTime}</Text>
       </View>
-        <Image source={{ uri: comment.photo }} style={styles.image} />
+         {comment.photo ?
+        <Image source={{ uri: comment.photo }} style={styles.image} /> :
+        <Image style={{ width: 30, height: 30, borderRadius: 16 }}
+        source={require('../images/avatar.png')}>
+      </Image>}
     </View>
   );
 };

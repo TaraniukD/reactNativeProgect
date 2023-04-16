@@ -13,8 +13,6 @@ export default function Posters({ item }) {
   const likesQuantity = () => {
     dispatch(changeLikes(item.idPost));
   };
-
-  console.log(item.idPost)
     
   return (
     <View style={styles.container}>
