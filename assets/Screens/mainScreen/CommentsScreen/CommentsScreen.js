@@ -72,8 +72,6 @@ export default function CommentsScreen({ route }) {
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View style={{ height: 32 }} />}
         />
-        
-        <View style={styles.inputWrap}>
           <TextInput
             style={styles.input}
             value={comment}
@@ -87,7 +85,6 @@ export default function CommentsScreen({ route }) {
             onPress={() => comment && submitComment()}>
             <Feather name="arrow-up" size={24} color="#fff" />
           </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
