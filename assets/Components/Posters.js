@@ -16,7 +16,7 @@ export default function Posters({ item }) {
     
   return (
     <View style={styles.container}>
-      <Image source={{uri: item.photo}} style={styles.photo} />
+      <Image source={item.photo && {uri: item.photo}} style={styles.photo} />
       <View>
         <Text style={{ ...styles.title, marginBottom: 11 }}>{item.title}</Text>
         <View

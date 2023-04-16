@@ -7,13 +7,12 @@ export const styles = StyleSheet.create({
     paddingTop: 32,
   },
   cameraWrap: {
-    position: "relative",
-    width: "100%",
-    height: 280,
-    marginBottom: 8,
-    overflow: "hidden",
+    borderRadius: 8,
+    borderWidth: 1,
+    backgroundColor: "#000000",
+    height: 240,
+    justifyContent: "center"
   },
-
   text: {
     fontSize: 16,
     lineHeight: 19,

@@ -11,6 +11,7 @@ import {
 
 import { useDispatch } from "react-redux";
 import * as MediaLibrary from "expo-media-library";
+import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
@@ -18,7 +19,8 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from './CreatePosts.styled';
 import { uploadPhotoToServer } from "../../../../firebase/firebaseUtils";
-import {uploadPostToServer, getPosts } from "../../../../redux/posts/postsOperations";
+import { uploadPostToServer, getPosts } from "../../../../redux/posts/postsOperations";
+import { updateIsLoadAvatarOnServer } from "../../../../redux/auth/authReducer";
 
 const initialPosts = {
   photo: "",
@@ -32,6 +34,7 @@ const initialPosts = {
 export function CreatePosts({ navigation }) {
   const [posts, setPosts ] = useState(initialPosts);
   const [camera, setCamera] = useState(null)
+  const [hasPermission, setHasPermission] = useState(null);
    
   const dispatch = useDispatch();
 
@@ -53,6 +56,16 @@ export function CreatePosts({ navigation }) {
     })();
   }, []);
 
+   useEffect(() => {
+    setPosts((prevS) => ({ ...prevS, photo: "" }));
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      await MediaLibrary.requestPermissionsAsync();
+
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
     const downloadPhoto = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -63,7 +76,7 @@ export function CreatePosts({ navigation }) {
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    dispatch(updateIsLoadingPhotoToServer(true));
+    dispatch(updateIsLoadAvatarOnServer(true));
 
     if (pickerResult.canceled === true) {
       return;
@@ -71,8 +84,8 @@ export function CreatePosts({ navigation }) {
 
     const source = pickerResult.assets[0].uri;
     const uploadedPhoto = await uploadPhotoToServer(source, "avatars");
-    setFormData((prevS) => ({ ...prevS, photo: uploadedPhoto }));
-    dispatch(updateIsLoadingPhotoToServer(false));
+    setPosts((prevS) => ({ ...prevS, photo: uploadedPhoto }));
+    dispatch(updateIsLoadAvatarOnServer(false));
   };
 
   const takePhoto = async () => {    
@@ -104,18 +117,22 @@ export function CreatePosts({ navigation }) {
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
-          <View style={{ marginBottom: 32 }}><View style={{ borderRadius: 8, borderWidth: 1, backgroundColor: "#000000", height: 240, justifyContent: "center"}}>
-            <Camera style={styles.camera} ref={setCamera}>
-                {posts.photo && (
+          <View style={{ marginBottom: 32 }}>
+            <View style={styles.cameraWrap}>
+              {hasPermission &&
+              <Camera style={styles.camera} ref={(ref) => { setCamera(ref) }}>
+              {posts.photo && (
                 <View style={styles.takePhotoContainer}>
-                    <Image source={{ uri: posts.photo }} style={{ height: 150,
-                      width: 270, borderRadius: 8,}} />
+                  <Image source={{ uri: posts.photo }} style={{
+                    height: 150,
+                    width: 270, borderRadius: 8,
+                  }} />
                 </View>
-                )}
-                <TouchableOpacity onPress={takePhoto} style={styles.snap}>
-                    <MaterialIcons name="camera" size={35} color="#BDBDBD" />
-                </TouchableOpacity>
-          </Camera>
+              )}
+              <TouchableOpacity onPress={takePhoto} style={styles.snap}>
+                <MaterialIcons name="camera" size={35} color="#BDBDBD" />
+              </TouchableOpacity>
+            </Camera>}
           </View>
         <TouchableOpacity  activeOpacity={0.8} style={styles.loadImg} onPress={() => downloadPhoto()}>
             <Text style={styles.text}>Download photo</Text>
