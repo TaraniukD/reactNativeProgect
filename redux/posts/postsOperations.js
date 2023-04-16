@@ -60,13 +60,12 @@ export const uploadComments = (postId, comment) => async (dispatch, getState) =>
     const { userId } = getState().auth;
     try {
       const commentRef = collection(db, "posts", postId, "comments");
-      console.log(commentRef)
+      
       await addDoc(commentRef, {
         ...comment,
         userId: userId,
       });
       dispatch(getPosts());
-      console.log("Comment added to post");
     } catch (error) {
       console.log(error.message);
     }

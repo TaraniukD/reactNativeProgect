@@ -51,7 +51,6 @@ export const authSignInUser = ({ userEmail, password }) =>
           stateChange: true,
         })
       );
-
       return { user };
     } catch (error) {
       return error.message;
@@ -77,36 +76,38 @@ try {
 
     if (userData.userEmail) {
       try {
-        await dispatch(authLogin(userData));
-       
+        await dispatch(authSignInUser(userData));
+       dispatch(authSlice.actions.updateIsLoading(false));
 
       } catch (error) {
         Alert("Sorry, this user does not exist");
+         dispatch(authSlice.actions.updateIsLoading(false));
         return error.message;
       }
     }
-  } catch (error) {
+} catch (error) {
+   dispatch(authSlice.actions.updateIsLoading(false));
     return error.message;
   }
 };
 
-export const uploadAvatar = (avatar) => async (dispatch) => {
-  try {
-    await updateProfile(auth.currentUser, {
-      photoURL: avatar,
-    });
-    dispatch(updateAvatar(avatar));
-  } catch (error) {
-    return error.message;
-  }
-};
+// export const uploadAvatar = (avatar) => async (dispatch) => {
+//   try {
+//     await updateProfile(auth.currentUser, {
+//       photoURL: avatar,
+//     });
+//     dispatch(authSlice.actions.updateAvatar(avatar));
+//   } catch (error) {
+//     return error.message;
+//   }
+// };
 
 export const authUpdateAvatar = (avatar) => async (dispatch) => {
   try {
     await updateProfile(auth.currentUser, {
       photoURL: avatar,
     });
-    dispatch(authSlise.actions.updateAvatar(avatar));
+    dispatch(authSlice.actions.updateAvatar(avatar));
   } catch (error) {
     return error.message;
   }

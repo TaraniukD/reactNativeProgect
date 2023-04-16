@@ -15,9 +15,6 @@ const Main = () => {
     const dispatch = useDispatch();
 
     const routing = useRoute(stateChange);
-
-    console.log(stateChange)
-    console.log(state)
     
     useEffect(() => {
         dispatch(authStateChangeUser())

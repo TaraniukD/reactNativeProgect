@@ -6,6 +6,7 @@ const initialState = {
     userId: null,
     avatar: null,
     stateChange: false,
+    isLoading: false,
     isLoadAvatarOnServer: false,
 };
 
@@ -23,6 +24,9 @@ export const authSlice = createSlice({
         }),
         logoutUser: () => initialState,
         authStateChange: (state, action) => ({ ...state, stateChange: action.payload.stateChange }),
+         updateIsLoading: (state, { payload }) => {
+      state.isLoading = payload;
+    },
         updateIsLoadAvatarOnServer: (state, { payload }) => {
       state.isLoadingPhotoToServer = payload;
         },
@@ -30,7 +34,6 @@ export const authSlice = createSlice({
       state.avatar = payload;
     },
     }
-    
 });
 
 
