@@ -12,7 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import * as MediaLibrary from "expo-media-library";
 import * as ImagePicker from "expo-image-picker";
-import { Camera } from "expo-camera";
+import { Camera, CameraType } from "expo-camera";
 import * as Location from "expo-location";
 
 import { Feather } from "@expo/vector-icons";
@@ -33,10 +33,15 @@ const initialPosts = {
 
 export function CreatePosts({ navigation }) {
   const [posts, setPosts ] = useState(initialPosts);
-  const [camera, setCamera] = useState(null)
+  const [camera, setCamera] = useState(null);
+  const [type, setType] = useState(CameraType.back);
   const [hasPermission, setHasPermission] = useState(null);
    
   const dispatch = useDispatch();
+
+  function toggleCameraType() {
+    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  }
 
   useEffect(() => {
     (async () => {
@@ -61,10 +66,13 @@ export function CreatePosts({ navigation }) {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       await MediaLibrary.requestPermissionsAsync();
-
       setHasPermission(status === "granted");
     })();
-  }, []);
+   }, []);
+  
+    if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
     const downloadPhoto = async () => {
     let permissionResult =
@@ -120,7 +128,10 @@ export function CreatePosts({ navigation }) {
           <View style={{ marginBottom: 32 }}>
             <View style={styles.cameraWrap}>
               {hasPermission &&
-              <Camera style={styles.camera} ref={(ref) => { setCamera(ref) }}>
+                <Camera style={styles.camera} ref={(ref) => { setCamera(ref) }} type={type}>
+                    <TouchableOpacity style={{flex: 1, justifyContent: "flex-start", alignItems: "flex-end"}} onPress={toggleCameraType}>
+                     <Text style={styles.text}>Flip Camera</Text>
+                    </TouchableOpacity> 
               {posts.photo && (
                 <View style={styles.takePhotoContainer}>
                   <Image source={{ uri: posts.photo }} style={{
